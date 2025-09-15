@@ -2,41 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* CSE Department Design System - Futuristic Tech Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors - Deep tech theme */
+    --background: 225 15% 6%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Glass card effects */
+    --card: 225 15% 8%;
+    --card-foreground: 210 40% 98%;
+    --glass: 225 15% 12%;
+    --glass-border: 195 100% 50%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Interactive elements */
+    --popover: 225 15% 10%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Electric cyan */
+    --primary: 195 100% 50%;
+    --primary-foreground: 225 15% 6%;
+    --primary-glow: 195 100% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Neon green accent */
+    --secondary: 145 100% 50%;
+    --secondary-foreground: 225 15% 6%;
+    --secondary-glow: 145 100% 65%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted tones */
+    --muted: 225 15% 15%;
+    --muted-foreground: 210 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Purple tech */
+    --accent: 260 100% 60%;
+    --accent-foreground: 210 40% 98%;
+    --accent-glow: 260 100% 75%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Status colors */
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
+    --success: 145 100% 50%;
+    --warning: 45 100% 60%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Interactive states */
+    --border: 225 15% 20%;
+    --input: 225 15% 12%;
+    --ring: 195 100% 50%;
 
-    --radius: 0.5rem;
+    /* Design system tokens */
+    --radius: 0.75rem;
+    --glass-opacity: 0.1;
+    --glow-opacity: 0.3;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--muted)));
+    --gradient-glass: linear-gradient(135deg, 
+      hsla(var(--glass-border), 0.1), 
+      hsla(var(--glass-border), 0.05)
+    );
+
+    /* Shadows and effects */
+    --shadow-glass: 0 8px 32px hsla(var(--primary), 0.1);
+    --shadow-glow: 0 0 30px hsla(var(--primary), var(--glow-opacity));
+    --shadow-card: 0 4px 20px hsla(0, 0%, 0%, 0.3);
+
+    /* Animation durations */
+    --duration-fast: 0.2s;
+    --duration-normal: 0.3s;
+    --duration-slow: 0.5s;
+
+    /* Transitions */
+    --transition-smooth: all var(--duration-normal) cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all var(--duration-normal) cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +141,112 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom utility classes for glassmorphism and effects */
+@layer components {
+  .glass {
+    @apply bg-glass/10 backdrop-blur-md border border-glass-border/20;
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .glass-card {
+    @apply glass rounded-xl p-6 transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply border-primary/40 shadow-lg;
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px hsla(var(--primary), 0.5);
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+  
+  .hover-lift {
+    @apply transition-transform duration-300;
+  }
+  
+  .hover-lift:hover {
+    @apply -translate-y-2;
+  }
+}
+
+/* Keyframe animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 20px hsla(var(--primary), 0.3); }
+  100% { box-shadow: 0 0 40px hsla(var(--primary), 0.6); }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted/20;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/40 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/60;
 }
