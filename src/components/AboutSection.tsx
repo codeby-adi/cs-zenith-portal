@@ -1,67 +1,37 @@
-import { useEffect, useState } from 'react';
 import { Award, Users, BookOpen, Target } from 'lucide-react';
+import { motion } from 'framer-motion';
+import HologramCard from './HologramCard';
+import AnimatedCounter from './AnimatedCounter';
 
 const AboutSection = () => {
-  const [counters, setCounters] = useState({
-    students: 0,
-    faculty: 0,
-    programs: 0,
-    years: 0,
-  });
-
-  const finalCounts = {
-    students: 500,
-    faculty: 25,
-    programs: 8,
-    years: 25,
-  };
-
-  useEffect(() => {
-    const duration = 2000; // 2 seconds
-    const steps = 60;
-    const increment = duration / steps;
-
-    let currentStep = 0;
-    const interval = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-      
-      setCounters({
-        students: Math.floor(finalCounts.students * progress),
-        faculty: Math.floor(finalCounts.faculty * progress),
-        programs: Math.floor(finalCounts.programs * progress),
-        years: Math.floor(finalCounts.years * progress),
-      });
-
-      if (currentStep >= steps) {
-        clearInterval(interval);
-        setCounters(finalCounts);
-      }
-    }, increment);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const achievements = [
     {
       icon: Award,
-      title: 'Excellence in Research',
-      description: 'Leading research in AI, Machine Learning, and Cybersecurity',
+      value: '95',
+      suffix: '%',
+      label: 'Placement Rate',
+      color: '#00ffff',
     },
     {
       icon: Users,
-      title: 'Industry Partnerships',
-      description: 'Strong ties with top tech companies for internships and placements',
+      value: '50',
+      suffix: '+',
+      label: 'Industry Partners',
+      color: '#ff00ff',
     },
     {
       icon: BookOpen,
-      title: 'Comprehensive Curriculum',
-      description: 'Updated curriculum aligned with industry standards and emerging technologies',
+      value: '25',
+      suffix: '',
+      label: 'Research Areas',
+      color: '#ffff00',
     },
     {
       icon: Target,
-      title: 'Student Success',
-      description: '95% placement rate with graduates working at Fortune 500 companies',
+      value: '100',
+      suffix: '+',
+      label: 'AI Projects',
+      color: '#00ff88',
     },
   ];
 
@@ -75,104 +45,248 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-background to-muted/10">
+    <section id="about" className="py-20 bg-gradient-to-br from-background to-muted/20 matrix-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-glow gradient-primary bg-clip-text text-transparent">
-              About Our Department
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            For over two decades, we've been at the forefront of computer science education,
-            fostering innovation and preparing the next generation of tech leaders.
-          </p>
-        </div>
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold mb-6 ai-text"
+            initial={{ scale: 0.8 }}
+            whileInView={{ scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            About Our Department
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            Leading the future of technology education through cutting-edge research, 
+            innovative curriculum, and world-class faculty dedicated to AI and emerging technologies.
+          </motion.p>
+        </motion.div>
 
-        {/* Animated Counters */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+        {/* Enhanced Animated Counters */}
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, staggerChildren: 0.1 }}
+          viewport={{ once: true }}
+        >
           {[
-            { key: 'students', label: 'Students', suffix: '+' },
-            { key: 'faculty', label: 'Faculty Members', suffix: '+' },
-            { key: 'programs', label: 'Programs', suffix: '' },
-            { key: 'years', label: 'Years of Excellence', suffix: '' },
+            { number: 500, suffix: '+', label: 'AI Students', color: '#00ffff' },
+            { number: 25, suffix: '+', label: 'ML Experts', color: '#ff00ff' },
+            { number: 15, suffix: '', label: 'Quantum Labs', color: '#ffff00' },
+            { number: 25, suffix: '', label: 'Years Innovation', color: '#00ff88' },
           ].map((item, index) => (
-            <div
-              key={item.key}
-              className="glass-card text-center hover-lift animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="text-4xl md:text-5xl font-bold text-glow gradient-secondary bg-clip-text text-transparent mb-2">
-                {counters[item.key as keyof typeof counters]}{item.suffix}
-              </div>
-              <div className="text-muted-foreground font-medium">
-                {item.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Achievements Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          {achievements.map((achievement, index) => (
-            <div
+            <motion.div
               key={index}
-              className="glass-card hover-lift group animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              initial={{ opacity: 0, scale: 0.8, rotateY: 45 }}
+              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05, rotateY: 10 }}
             >
-              <div className="mb-4">
-                <achievement.icon 
-                  size={48} 
-                  className="text-primary group-hover:text-secondary transition-colors duration-300" 
-                />
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">
-                {achievement.title}
-              </h3>
-              <p className="text-muted-foreground">
-                {achievement.description}
-              </p>
-            </div>
+              <HologramCard className="text-center neural-card" glowColor={item.color}>
+                <div className="text-4xl md:text-5xl font-bold mb-2">
+                  <AnimatedCounter
+                    end={item.number}
+                    suffix={item.suffix}
+                    className="ai-text"
+                  />
+                </div>
+                <motion.div 
+                  className="text-muted-foreground font-medium"
+                  animate={{ 
+                    color: [
+                      'hsl(var(--muted-foreground))',
+                      item.color,
+                      'hsl(var(--muted-foreground))'
+                    ]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                >
+                  {item.label}
+                </motion.div>
+              </HologramCard>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Timeline */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-bold text-center mb-12 text-glow gradient-accent bg-clip-text text-transparent">
-            Our Journey
-          </h3>
+        {/* Enhanced Achievements Grid */}
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ staggerChildren: 0.1 }}
+          viewport={{ once: true }}
+        >
+          {achievements.map((achievement, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50, rotateX: 45 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              viewport={{ once: true }}
+              whileHover={{ 
+                y: -10, 
+                rotateY: 15,
+                scale: 1.02,
+                transition: { duration: 0.3 }
+              }}
+              className="perspective-1000"
+            >
+              <HologramCard glowColor={achievement.color}>
+                <div className="mb-4">
+                  <motion.div
+                    animate={{
+                      rotate: [0, 360],
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                  >
+                    <achievement.icon 
+                      size={48} 
+                      style={{ color: achievement.color }}
+                    />
+                  </motion.div>
+                </div>
+                <div className="text-3xl font-bold mb-2">
+                  <AnimatedCounter
+                    end={parseInt(achievement.value)}
+                    suffix={achievement.suffix}
+                    className="ai-text"
+                  />
+                </div>
+                <motion.div 
+                  className="text-muted-foreground font-medium hologram-text"
+                  animate={{
+                    textShadow: [
+                      `0 0 10px ${achievement.color}40`,
+                      `0 0 20px ${achievement.color}80`,
+                      `0 0 10px ${achievement.color}40`,
+                    ]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  {achievement.label}
+                </motion.div>
+              </HologramCard>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Enhanced Timeline */}
+        <motion.div 
+          className="mb-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <motion.h3 
+            className="text-3xl font-bold text-center mb-12 ai-text"
+            initial={{ y: 50 }}
+            whileInView={{ y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            Our AI Evolution Journey
+          </motion.h3>
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary via-secondary to-accent"></div>
+            {/* Enhanced Timeline line */}
+            <motion.div 
+              className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 cyber-border"
+              style={{
+                background: 'linear-gradient(to bottom, #00ffff, #ff00ff, #ffff00)'
+              }}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              transition={{ duration: 2 }}
+              viewport={{ once: true }}
+            />
             
             {timeline.map((item, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`flex items-center mb-12 animate-fade-in ${
+                className={`flex items-center mb-12 ${
                   index % 2 === 0 ? 'flex-row-reverse' : ''
                 }`}
-                style={{ animationDelay: `${index * 0.2}s` }}
+                initial={{ 
+                  opacity: 0, 
+                  x: index % 2 === 0 ? 100 : -100,
+                  rotateY: index % 2 === 0 ? 45 : -45
+                }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, rotateY: index % 2 === 0 ? 5 : -5 }}
               >
                 <div className={`w-1/2 ${index % 2 === 0 ? 'pl-8' : 'pr-8'}`}>
-                  <div className="glass-card hover-lift">
-                    <div className="text-lg font-bold text-primary mb-2">
+                  <HologramCard 
+                    glowColor={index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'}
+                  >
+                    <motion.div 
+                      className="text-lg font-bold mb-2 ai-text"
+                      animate={{
+                        textShadow: [
+                          `0 0 10px ${index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'}40`,
+                          `0 0 20px ${index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'}80`,
+                          `0 0 10px ${index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'}40`,
+                        ]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
                       {item.year}
-                    </div>
-                    <p className="text-muted-foreground">{item.event}</p>
-                  </div>
+                    </motion.div>
+                    <p className="text-muted-foreground hologram-text">{item.event}</p>
+                  </HologramCard>
                 </div>
                 
-                {/* Timeline dot */}
-                <div className="relative flex-shrink-0">
-                  <div className="w-6 h-6 bg-gradient-primary rounded-full border-4 border-background animate-pulse-glow"></div>
-                </div>
+                {/* Enhanced Timeline dot */}
+                <motion.div 
+                  className="relative flex-shrink-0"
+                  whileHover={{ scale: 1.2 }}
+                >
+                  <motion.div 
+                    className="w-6 h-6 rounded-full border-4 border-background neural-card"
+                    style={{
+                      background: `linear-gradient(45deg, ${
+                        index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'
+                      }, ${
+                        index % 3 === 0 ? '#0080ff' : index % 3 === 1 ? '#ff0080' : '#ffff80'
+                      })`
+                    }}
+                    animate={{
+                      boxShadow: [
+                        `0 0 10px ${index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'}40`,
+                        `0 0 20px ${index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'}80`,
+                        `0 0 30px ${index % 3 === 0 ? '#00ffff' : index % 3 === 1 ? '#ff00ff' : '#ffff00'}60`,
+                      ],
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </motion.div>
                 
                 <div className="w-1/2"></div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -115,6 +115,57 @@ export default {
         "scale-in": {
           "from": { transform: "scale(0.95)", opacity: "0" },
           "to": { transform: "scale(1)", opacity: "1" }
+        },
+        "matrix-rain": {
+          "0%": { transform: "translateY(-100vh) rotate(0deg)" },
+          "100%": { transform: "translateY(100vh) rotate(360deg)" }
+        },
+        "hologram-flicker": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.8" }
+        },
+        "data-stream": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100vw)" }
+        },
+        "neural-pulse": {
+          "0%, 100%": {
+            transform: "scale(1)",
+            boxShadow: "0 0 20px hsla(var(--primary), 0.4)"
+          },
+          "50%": {
+            transform: "scale(1.05)",
+            boxShadow: "0 0 40px hsla(var(--primary), 0.8)"
+          }
+        },
+        "cyber-glow": {
+          "0%, 100%": {
+            textShadow: "0 0 5px hsla(var(--primary), 0.8), 0 0 10px hsla(var(--primary), 0.6), 0 0 15px hsla(var(--primary), 0.4)"
+          },
+          "50%": {
+            textShadow: "0 0 10px hsla(var(--primary), 1), 0 0 20px hsla(var(--primary), 0.8), 0 0 30px hsla(var(--primary), 0.6)"
+          }
+        },
+        "bounce-in": {
+          "0%": { transform: "scale(0.3)", opacity: "0" },
+          "50%": { transform: "scale(1.05)", opacity: "0.8" },
+          "70%": { transform: "scale(0.9)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" }
+        },
+        "slide-in-left": {
+          "0%": { transform: "translateX(-100%)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" }
+        },
+        "slide-in-right": {
+          "0%": { transform: "translateX(100%)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" }
+        },
+        "rotate-3d": {
+          "0%": { transform: "rotate3d(1, 1, 0, 0deg)" },
+          "25%": { transform: "rotate3d(1, 1, 0, 90deg)" },
+          "50%": { transform: "rotate3d(1, 1, 0, 180deg)" },
+          "75%": { transform: "rotate3d(1, 1, 0, 270deg)" },
+          "100%": { transform: "rotate3d(1, 1, 0, 360deg)" }
         }
       },
       animation: {
@@ -125,7 +176,16 @@ export default {
         "slide-up": "slide-up 0.6s ease-out",
         "gradient-shift": "gradient-shift 8s ease infinite",
         "fade-in": "fade-in 0.6s ease-out",
-        "scale-in": "scale-in 0.3s ease-out"
+        "scale-in": "scale-in 0.3s ease-out",
+        "matrix-rain": "matrix-rain 20s linear infinite",
+        "hologram-flicker": "hologram-flicker 2s ease-in-out infinite",
+        "data-stream": "data-stream 3s ease-in-out infinite",
+        "neural-pulse": "neural-pulse 3s ease-in-out infinite",
+        "cyber-glow": "cyber-glow 2s ease-in-out infinite",
+        "bounce-in": "bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+        "slide-in-left": "slide-in-left 0.6s ease-out",
+        "slide-in-right": "slide-in-right 0.6s ease-out",
+        "rotate-3d": "rotate-3d 4s ease-in-out infinite"
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -234,6 +234,47 @@
   50% { background-position: 100% 50%; }
 }
 
+@keyframes matrix-rain {
+  0% { transform: translateY(-100vh) rotate(0deg); }
+  100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+@keyframes hologram-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes data-stream {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes neural-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px hsla(var(--primary), 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px hsla(var(--primary), 0.8);
+  }
+}
+
+@keyframes cyber-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px hsla(var(--primary), 0.8),
+      0 0 10px hsla(var(--primary), 0.6),
+      0 0 15px hsla(var(--primary), 0.4);
+  }
+  50% {
+    text-shadow: 
+      0 0 10px hsla(var(--primary), 1),
+      0 0 20px hsla(var(--primary), 0.8),
+      0 0 30px hsla(var(--primary), 0.6);
+  }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
