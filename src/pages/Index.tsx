@@ -7,6 +7,7 @@ import CoursesSection from '@/components/CoursesSection';
 import ResearchSection from '@/components/ResearchSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import RobotFollower from '@/components/RobotFollower';
 
 const Index = () => {
   useEffect(() => {
@@ -76,6 +77,9 @@ const Index = () => {
       
       {/* Footer */}
       <Footer />
+      
+      {/* Interactive Robot Follower */}
+      <RobotFollower />
     </div>
   );
 };
