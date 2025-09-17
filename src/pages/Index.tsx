@@ -8,6 +8,9 @@ import ResearchSection from '@/components/ResearchSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import RobotFollower from '@/components/RobotFollower';
+import DynamicNavigation from '@/components/DynamicNavigation';
+import AdvancedParticles from '@/components/AdvancedParticles';
+import ScrollReveal from '@/components/ScrollReveal';
 
 const Index = () => {
   useEffect(() => {
@@ -50,33 +53,65 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground relative overflow-x-hidden">
+      {/* Advanced Particle Background */}
+      <AdvancedParticles />
+      
+      {/* Dynamic Navigation */}
+      <DynamicNavigation />
+      
       {/* Navigation */}
       <Navbar />
       
       {/* Main Content */}
       <main>
         {/* Hero Section */}
-        <HeroSection />
+        <div data-section="home">
+          <ScrollReveal direction="fade" duration={1.2}>
+            <HeroSection />
+          </ScrollReveal>
+        </div>
         
         {/* About Department */}
-        <AboutSection />
+        <div data-section="about">
+          <ScrollReveal direction="up" delay={0.2}>
+            <AboutSection />
+          </ScrollReveal>
+        </div>
         
         {/* Faculty Showcase */}
-        <FacultySection />
+        <div data-section="faculty">
+          <ScrollReveal direction="left" delay={0.1}>
+            <FacultySection />
+          </ScrollReveal>
+        </div>
         
         {/* Academic Programs */}
-        <CoursesSection />
+        <div data-section="courses">
+          <ScrollReveal direction="right" delay={0.1}>
+            <CoursesSection />
+          </ScrollReveal>
+        </div>
         
         {/* Research Labs */}
-        <ResearchSection />
+        <div data-section="research">
+          <ScrollReveal direction="scale" delay={0.2}>
+            <ResearchSection />
+          </ScrollReveal>
+        </div>
         
         {/* Contact Information */}
-        <ContactSection />
+        <div data-section="contact">
+          <ScrollReveal direction="up" delay={0.3}>
+            <ContactSection />
+          </ScrollReveal>
+        </div>
       </main>
       
       {/* Footer */}
-      <Footer />
+      <ScrollReveal direction="fade">
+        <Footer />
+      </ScrollReveal>
       
       {/* Interactive Robot Follower */}
       <RobotFollower />

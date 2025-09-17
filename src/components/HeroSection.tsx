@@ -5,6 +5,8 @@ import heroBg from '@/assets/hero-bg.jpg';
 import ParticleBackground from './ParticleBackground';
 import AnimatedCounter from './AnimatedCounter';
 import FloatingElements from './FloatingElements';
+import InteractiveDataViz from './InteractiveDataViz';
+import RealTimeStats from './RealTimeStats';
 
 const HeroSection = () => {
   const floatingIcons = [
@@ -249,6 +251,32 @@ const HeroSection = () => {
               </motion.div>
             ))}
           </motion.div>
+        </motion.div>
+        
+        {/* Real-Time Statistics Section */}
+        <motion.div
+          className="mt-16 max-w-6xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.5 }}
+        >
+          <RealTimeStats />
+        </motion.div>
+        
+        {/* Interactive Data Visualization */}
+        <motion.div
+          className="mt-16 max-w-6xl mx-auto"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 2.8 }}
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              Research Impact Visualization
+            </h3>
+            <p className="text-gray-300">Interactive 3D view of our research domains</p>
+          </div>
+          <InteractiveDataViz />
         </motion.div>
       </div>
 
