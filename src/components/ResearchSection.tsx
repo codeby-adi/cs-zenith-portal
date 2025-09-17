@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Brain, Shield, Database, Cpu, Globe, Zap, ExternalLink, Users } from 'lucide-react';
+import { Brain, Shield, Database, Cpu, Globe, Zap, ExternalLink, Users, Calendar, MapPin, Award, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import labBg from '@/assets/lab-bg.jpg';
 
 const ResearchSection = () => {
@@ -17,7 +18,18 @@ const ResearchSection = () => {
       faculty: 8,
       students: 45,
       categories: ['ai', 'ml'],
-      highlights: ['Computer Vision', 'Natural Language Processing', 'Robotics', 'Expert Systems']
+      highlights: ['Computer Vision', 'Natural Language Processing', 'Robotics', 'Expert Systems'],
+      location: 'Block A, Floor 3',
+      established: '2018',
+      head: 'Dr. Sarah Johnson',
+      equipment: ['NVIDIA DGX A100', 'High-performance GPUs', 'Quantum Simulators', 'IoT Sensors'],
+      achievements: ['Best AI Research Lab 2023', '50+ Publications', 'Industry Partnerships'],
+      ongoingProjects: [
+        'Automated Medical Diagnosis using Deep Learning',
+        'Natural Language Processing for Indian Languages',
+        'Computer Vision for Autonomous Vehicles',
+        'AI Ethics and Bias Detection Framework'
+      ]
     },
     {
       icon: Shield,
@@ -28,7 +40,18 @@ const ResearchSection = () => {
       faculty: 5,
       students: 30,
       categories: ['security', 'networks'],
-      highlights: ['Blockchain Security', 'IoT Security', 'Malware Analysis', 'Incident Response']
+      highlights: ['Blockchain Security', 'IoT Security', 'Malware Analysis', 'Incident Response'],
+      location: 'Block B, Floor 2',
+      established: '2019',
+      head: 'Dr. Michael Chen',
+      equipment: ['Penetration Testing Tools', 'Network Analyzers', 'Forensic Workstations', 'Blockchain Test Network'],
+      achievements: ['Cybersecurity Excellence Award 2024', '30+ Security Audits', 'Government Collaborations'],
+      ongoingProjects: [
+        'Blockchain-based Identity Management System',
+        'IoT Security Framework Development',
+        'Advanced Persistent Threat Detection',
+        'Quantum Cryptography Research'
+      ]
     },
     {
       icon: Database,
@@ -155,11 +178,12 @@ const ResearchSection = () => {
         {/* Research Labs Grid */}
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {filteredAreas.map((area, index) => (
-            <div
-              key={index}
-              className="glass-card hover-lift group animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+            <Dialog key={index}>
+              <DialogTrigger asChild>
+                <div
+                  className="glass-card hover-lift group animate-fade-in cursor-pointer"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
               {/* Lab Image */}
               <div className="relative mb-6 overflow-hidden rounded-lg">
                 <img
@@ -228,6 +252,148 @@ const ResearchSection = () => {
                 </Button>
               </div>
             </div>
+              </DialogTrigger>
+
+              {/* Detailed Lab Modal */}
+              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-card">
+                <DialogHeader>
+                  <DialogTitle className="text-3xl font-bold gradient-primary bg-clip-text text-transparent flex items-center">
+                    <area.icon size={32} className="mr-4 text-primary" />
+                    {area.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-lg text-muted-foreground">
+                    {area.description}
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-8">
+                  {/* Lab Overview */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <img
+                        src={area.image}
+                        alt={area.title}
+                        className="w-full h-64 object-cover rounded-lg"
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="glass-card text-center">
+                          <div className="text-2xl font-bold text-primary">{area.projects}</div>
+                          <div className="text-sm text-muted-foreground">Active Projects</div>
+                        </div>
+                        <div className="glass-card text-center">
+                          <div className="text-2xl font-bold text-secondary">{area.faculty}</div>
+                          <div className="text-sm text-muted-foreground">Faculty Members</div>
+                        </div>
+                        <div className="glass-card text-center">
+                          <div className="text-2xl font-bold text-accent">{area.students}</div>
+                          <div className="text-sm text-muted-foreground">Research Students</div>
+                        </div>
+                        <div className="glass-card text-center">
+                          <div className="text-2xl font-bold text-primary">{area.established}</div>
+                          <div className="text-sm text-muted-foreground">Established</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Lab Information */}
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="text-xl font-bold text-primary mb-3 flex items-center">
+                          <MapPin size={20} className="mr-2" />
+                          Lab Details
+                        </h4>
+                        <div className="space-y-2">
+                          <p><span className="font-semibold">Location:</span> {area.location}</p>
+                          <p><span className="font-semibold">Head:</span> {area.head}</p>
+                          <p><span className="font-semibold">Established:</span> {area.established}</p>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xl font-bold text-primary mb-3 flex items-center">
+                          <Award size={20} className="mr-2" />
+                          Achievements
+                        </h4>
+                        <ul className="space-y-2">
+                          {area.achievements?.map((achievement, idx) => (
+                            <li key={idx} className="flex items-center">
+                              <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
+                              {achievement}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="text-xl font-bold text-primary mb-3 flex items-center">
+                          <Cpu size={20} className="mr-2" />
+                          Equipment & Infrastructure
+                        </h4>
+                        <div className="grid grid-cols-1 gap-2">
+                          {area.equipment?.map((item, idx) => (
+                            <Badge key={idx} variant="outline" className="text-left justify-start bg-muted/10">
+                              {item}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xl font-bold text-primary mb-3">Research Areas</h4>
+                        <div className="grid grid-cols-2 gap-2">
+                          {area.highlights.map((highlight, idx) => (
+                            <Badge key={idx} variant="outline" className="bg-primary/5 border-primary/20">
+                              {highlight}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Ongoing Projects */}
+                  <div>
+                    <h4 className="text-xl font-bold text-primary mb-4 flex items-center">
+                      <BookOpen size={20} className="mr-2" />
+                      Ongoing Research Projects
+                    </h4>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {area.ongoingProjects?.map((project, idx) => (
+                        <div key={idx} className="glass-card">
+                          <h5 className="font-semibold text-foreground mb-2">{project}</h5>
+                          <div className="flex items-center text-sm text-muted-foreground">
+                            <Calendar size={14} className="mr-1" />
+                            In Progress
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button className="gradient-primary">
+                      <Users className="mr-2" size={16} />
+                      Join Research Team
+                    </Button>
+                    <Button variant="outline" className="glass">
+                      <ExternalLink className="mr-2" size={16} />
+                      View Publications
+                    </Button>
+                    <Button variant="outline" className="glass">
+                      <Calendar className="mr-2" size={16} />
+                      Schedule Visit
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           ))}
         </div>
 

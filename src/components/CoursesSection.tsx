@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { GraduationCap, Code, Database, Shield, Brain, Cpu, Globe, BookOpen } from 'lucide-react';
+import { GraduationCap, Code, Database, Shield, Brain, Cpu, Globe, BookOpen, Clock, Users, Award, Target } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
 
 const CoursesSection = () => {
   const [activeTab, setActiveTab] = useState('undergraduate');
@@ -17,7 +19,14 @@ const CoursesSection = () => {
           icon: Brain,
           name: 'Artificial Intelligence',
           description: 'Machine Learning, Deep Learning, Neural Networks',
-          courses: ['Introduction to AI', 'Machine Learning', 'Deep Learning', 'Computer Vision']
+          courses: ['Introduction to AI', 'Machine Learning', 'Deep Learning', 'Computer Vision'],
+          duration: '8 Semesters',
+          credits: '160 Credits',
+          prerequisites: ['Mathematics', 'Programming Fundamentals', 'Data Structures'],
+          careerPaths: ['ML Engineer', 'AI Researcher', 'Data Scientist', 'Computer Vision Engineer'],
+          industryPartners: ['Google', 'Microsoft', 'NVIDIA', 'OpenAI'],
+          projects: ['Chatbot Development', 'Image Recognition System', 'Predictive Analytics Dashboard'],
+          facilities: ['GPU Computing Lab', 'AI Research Center', 'Machine Learning Cluster']
         },
         {
           icon: Shield,
@@ -168,11 +177,12 @@ const CoursesSection = () => {
               {/* Specializations Grid */}
               <div className="grid md:grid-cols-2 gap-8">
                 {program.specializations.map((spec, index) => (
-                  <div
-                    key={index}
-                    className="glass-card hover-lift group animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
+                  <Dialog key={index}>
+                    <DialogTrigger asChild>
+                      <div
+                        className="glass-card hover-lift group animate-fade-in cursor-pointer"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
                     <div className="flex items-center mb-4">
                       <div className="p-3 bg-primary/10 rounded-lg mr-4 group-hover:bg-primary/20 transition-colors">
                         <spec.icon size={32} className="text-primary" />
@@ -209,6 +219,145 @@ const CoursesSection = () => {
                       Learn More
                     </Button>
                   </div>
+                    </DialogTrigger>
+
+                    {/* Detailed Course Modal */}
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-card">
+                      <DialogHeader>
+                        <DialogTitle className="text-3xl font-bold gradient-primary bg-clip-text text-transparent flex items-center">
+                          <spec.icon size={32} className="mr-4 text-primary" />
+                          {spec.name} Specialization
+                        </DialogTitle>
+                        <DialogDescription className="text-lg text-muted-foreground">
+                          {spec.description}
+                        </DialogDescription>
+                      </DialogHeader>
+
+                      <div className="space-y-8">
+                        {/* Program Overview */}
+                        <div className="grid md:grid-cols-3 gap-4">
+                          <div className="glass-card text-center">
+                            <Clock size={24} className="mx-auto mb-2 text-primary" />
+                            <div className="font-bold text-primary">{spec.duration || '4 Years'}</div>
+                            <div className="text-sm text-muted-foreground">Duration</div>
+                          </div>
+                          <div className="glass-card text-center">
+                            <BookOpen size={24} className="mx-auto mb-2 text-secondary" />
+                            <div className="font-bold text-secondary">{spec.credits || '160'}</div>
+                            <div className="text-sm text-muted-foreground">Total Credits</div>
+                          </div>
+                          <div className="glass-card text-center">
+                            <Users size={24} className="mx-auto mb-2 text-accent" />
+                            <div className="font-bold text-accent">24</div>
+                            <div className="text-sm text-muted-foreground">Class Size</div>
+                          </div>
+                        </div>
+
+                        {/* Course Curriculum */}
+                        <div>
+                          <h4 className="text-xl font-bold text-primary mb-4 flex items-center">
+                            <BookOpen size={20} className="mr-2" />
+                            Core Curriculum
+                          </h4>
+                          <div className="grid md:grid-cols-2 gap-4">
+                            {spec.courses.map((course, idx) => (
+                              <div key={idx} className="glass-card flex items-center">
+                                <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3">
+                                  <span className="text-primary font-bold text-sm">{idx + 1}</span>
+                                </div>
+                                <span className="font-medium">{course}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Prerequisites & Career Paths */}
+                        <div className="grid md:grid-cols-2 gap-8">
+                          <div>
+                            <h4 className="text-xl font-bold text-primary mb-4 flex items-center">
+                              <Target size={20} className="mr-2" />
+                              Prerequisites
+                            </h4>
+                            <div className="space-y-2">
+                              {(spec.prerequisites || ['Basic Programming', 'Mathematics', 'Problem Solving']).map((prereq, idx) => (
+                                <Badge key={idx} variant="outline" className="block w-fit bg-muted/10">
+                                  {prereq}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div>
+                            <h4 className="text-xl font-bold text-primary mb-4 flex items-center">
+                              <Award size={20} className="mr-2" />
+                              Career Opportunities
+                            </h4>
+                            <div className="space-y-2">
+                              {(spec.careerPaths || ['Software Developer', 'System Analyst', 'Tech Consultant', 'Project Manager']).map((career, idx) => (
+                                <Badge key={idx} variant="outline" className="block w-fit bg-primary/5 border-primary/20">
+                                  {career}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Industry Partners & Projects */}
+                        <div className="grid md:grid-cols-2 gap-8">
+                          <div>
+                            <h4 className="text-xl font-bold text-primary mb-4">Industry Partners</h4>
+                            <div className="grid grid-cols-2 gap-2">
+                              {(spec.industryPartners || ['TCS', 'Infosys', 'Wipro', 'Accenture']).map((partner, idx) => (
+                                <div key={idx} className="glass-card text-center py-2">
+                                  <span className="font-medium text-sm">{partner}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div>
+                            <h4 className="text-xl font-bold text-primary mb-4">Capstone Projects</h4>
+                            <div className="space-y-2">
+                              {(spec.projects || ['Web Application', 'Mobile App', 'Database System']).map((project, idx) => (
+                                <div key={idx} className="glass-card">
+                                  <p className="font-medium text-sm">{project}</p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Facilities */}
+                        <div>
+                          <h4 className="text-xl font-bold text-primary mb-4">Specialized Facilities</h4>
+                          <div className="grid md:grid-cols-3 gap-4">
+                            {(spec.facilities || ['Computer Lab', 'Research Center', 'Innovation Hub']).map((facility, idx) => (
+                              <div key={idx} className="glass-card text-center">
+                                <Cpu size={24} className="mx-auto mb-2 text-primary" />
+                                <span className="text-sm font-medium">{facility}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-4">
+                          <Button className="gradient-primary">
+                            <GraduationCap className="mr-2" size={16} />
+                            Apply for Program
+                          </Button>
+                          <Button variant="outline" className="glass">
+                            <BookOpen className="mr-2" size={16} />
+                            Download Syllabus
+                          </Button>
+                          <Button variant="outline" className="glass">
+                            <Users className="mr-2" size={16} />
+                            Contact Advisor
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 ))}
               </div>
 
